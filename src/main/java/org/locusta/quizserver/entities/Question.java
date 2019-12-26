@@ -15,11 +15,13 @@ public class Question {
 
     @Id @GeneratedValue
     private Long id;
-
     private String question;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
+
+    @ManyToOne
+    private Topic topic;
 
     public void addAnswer(Answer answer) {
         answer.setQuestion(this);
