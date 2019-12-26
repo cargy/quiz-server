@@ -1,6 +1,8 @@
 package fixtures;
 
+import org.locusta.quizserver.entities.Question;
 import org.locusta.quizserver.entities.Quiz;
+import org.locusta.quizserver.entities.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,19 @@ public class QuizFixtures {
         for(int i=0;i<numberOfQuestions;i++){
             quiz.addQuestion(questionFixtures.create("Question " + (i+1), i%3,
                     "Answer 1", "Answer 2", "Answer 3"));
+        }
+        return quiz;
+    }
+
+    public Quiz createWithTopics(String quizTitle, Topic... topics) {
+        Quiz quiz=new Quiz();
+        quiz.setTitle(quizTitle);
+        for(Topic topic:topics){
+            for (int i=0;i<3;i++) {
+                Question question = questionFixtures.create(topic.getName() + " - Question " + (i + 1), topic,
+                        i % 3, "Answer 1", "Answer 2", "Answer 3");
+                quiz.addQuestion(question);
+            }
         }
         return quiz;
     }
