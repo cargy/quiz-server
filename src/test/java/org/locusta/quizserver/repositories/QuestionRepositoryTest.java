@@ -49,5 +49,11 @@ public class QuestionRepositoryTest {
 
         assertEquals("Question?", question.getQuestion());
         assertEquals(3, question.getAnswers().size());
+
+        int index = 0;
+        for(Answer answer:question.getAnswers()) {
+            assertEquals("Answer " + ++index, answer.getAnswer());
+            assertEquals(index == 1, answer.isCorrect());
+        }
     }
 }
