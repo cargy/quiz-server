@@ -15,6 +15,7 @@ public class Quiz {
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="quiz_id")
     private Set<Question> questions=new HashSet<>();
 
     public void addQuestion(Question question) {

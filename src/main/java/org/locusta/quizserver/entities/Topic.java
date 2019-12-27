@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
@@ -15,7 +16,11 @@ public class Topic {
 
     private String name;
 
-    public Topic(String name) {
+    @ManyToOne(optional = false)
+    private Quiz quiz;
+
+    public Topic(String name, Quiz quiz) {
         this.name=name;
+        this.quiz=quiz;
     }
 }

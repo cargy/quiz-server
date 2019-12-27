@@ -1,7 +1,9 @@
 package fixtures;
 
+import org.assertj.core.util.Sets;
 import org.locusta.quizserver.entities.Answer;
 import org.locusta.quizserver.entities.Question;
+import org.locusta.quizserver.entities.Quiz;
 import org.locusta.quizserver.entities.Topic;
 import org.springframework.stereotype.Component;
 
@@ -26,5 +28,17 @@ public class QuestionFixtures {
         quiz.addAnswers(answersSet);
         quiz.setTopic(topic);
         return quiz;
+    }
+
+    public Set<Question> createWithTopics(Quiz quiz, Topic... topics) {
+        Set<Question> questions= Sets.newHashSet();
+        for(Topic topic:topics){
+            for (int i=0;i<3;i++) {
+                Question question = create(topic.getName() + " - Question " + (i + 1), topic,
+                        i % 3, "Answer 1", "Answer 2", "Answer 3");
+                questions.add(question);
+            }
+        }
+        return questions;
     }
 }

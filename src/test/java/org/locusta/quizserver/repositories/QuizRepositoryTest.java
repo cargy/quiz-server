@@ -2,9 +2,11 @@ package org.locusta.quizserver.repositories;
 
 import fixtures.QuizFixtures;
 import org.assertj.core.util.Sets;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.locusta.quizserver.entities.Question;
 import org.locusta.quizserver.entities.Quiz;
 import org.locusta.quizserver.entities.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +36,17 @@ public class QuizRepositoryTest {
 
     @BeforeEach
     public void init() {
-        Quiz quiz = fixtures.create("Quiz 1", 5);
-        repository.save(quiz);
+        Quiz quiz1 = fixtures.create("Quiz 1", 5);
+        repository.save(quiz1);
 
-        Set<Topic> topics = Sets.newLinkedHashSet(new Topic("Topic 1"), new Topic("Topic 2"));
+        Quiz quiz2 = new Quiz();
+        quiz2.setTitle("Quiz 2");
+        repository.save(quiz2);
+
+        Set<Topic> topics = Sets.newLinkedHashSet(new Topic("Topic 1", quiz2), new Topic("Topic 2",quiz2));
         topicRepository.saveAll(topics);
 
-        Quiz quizWithTopics = fixtures.createWithTopics("Quiz 2", topics.toArray(new Topic[2]));
-        repository.save(quizWithTopics);
+        repository.save(quiz2);
     }
 
     @Test
@@ -60,9 +65,9 @@ public class QuizRepositoryTest {
         Optional<Quiz> quiz = repository.findByTitle("Quiz 2");
 
         assertTrue(quiz.isPresent());
-        quiz.get().getQuestions().forEach(question -> assertNotNull(question.getTopic()));
-
-
+        quiz.get().getQuestions().stream()
+                .map(Question::getTopic)
+                .forEach(Assertions::assertNotNull);
     }
 
 }

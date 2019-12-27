@@ -17,7 +17,7 @@ public class Question {
     private Long id;
     private String question;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
 
     @ManyToOne
