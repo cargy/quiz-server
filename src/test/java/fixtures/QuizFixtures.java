@@ -19,8 +19,7 @@ public class QuizFixtures {
     }
 
     public Quiz create(String quizTitle, int numberOfQuestions) {
-        Quiz quiz=new Quiz();
-        quiz.setTitle(quizTitle);
+        Quiz quiz=new Quiz(quizTitle);
         for(int i=0;i<numberOfQuestions;i++){
             quiz.addQuestion(questionFixtures.create("Question " + (i+1), i%3,
                     "Answer 1", "Answer 2", "Answer 3"));

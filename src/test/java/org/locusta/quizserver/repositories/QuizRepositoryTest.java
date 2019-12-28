@@ -39,8 +39,7 @@ public class QuizRepositoryTest {
         Quiz quiz1 = fixtures.create("Quiz 1", 5);
         repository.save(quiz1);
 
-        Quiz quiz2 = new Quiz();
-        quiz2.setTitle("Quiz 2");
+        Quiz quiz2 = new Quiz("Quiz 2");
         repository.save(quiz2);
 
         Set<Topic> topics = Sets.newLinkedHashSet(new Topic("Topic 1", quiz2), new Topic("Topic 2",quiz2));
