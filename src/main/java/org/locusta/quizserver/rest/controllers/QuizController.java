@@ -30,7 +30,7 @@ public class QuizController {
     }
 
     @GetMapping("/{quizId}")
-    public QuizModel gettQuizById(@PathVariable Long quizId) {
+    public QuizModel getQuizById(@PathVariable Long quizId) {
         return quizService.findById(quizId);
     }
 }

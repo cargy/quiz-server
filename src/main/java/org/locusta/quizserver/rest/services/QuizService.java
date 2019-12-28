@@ -1,6 +1,7 @@
 package org.locusta.quizserver.rest.services;
 
 import org.locusta.quizserver.repositories.QuizRepository;
+import org.locusta.quizserver.rest.exceptions.QuizNotFound;
 import org.locusta.quizserver.rest.mappers.QuizMapper;
 import org.locusta.quizserver.rest.models.QuizModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,6 @@ public class QuizService {
     public QuizModel findById(Long quizId) {
         return repository.findById(quizId)
                 .map(mapper::convertToModel)
-                .orElse(null);
+                .orElseThrow(()->new QuizNotFound(quizId));
     }
 }
