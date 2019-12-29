@@ -1,3 +1,3 @@
-# Quiz server
+# Quiz server [![Build Status](https://travis-ci.org/cargy/quiz-server.svg?branch=master)](https://travis-ci.org/cargy/quiz-server)
 
-This plans to become a web service for Quiz questions and answers
+This aims to become a web service for Quiz questions and answers implemented in Spring Boot.
